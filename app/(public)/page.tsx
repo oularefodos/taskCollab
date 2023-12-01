@@ -20,9 +20,9 @@ const page = () => {
         <Link href='/signup'>
             <Button className='bg-black text-white p-4'>Get started for free</Button>
         </Link>
-        <div className='mt-6'>
+        {/* <div className='mt-6'>
             <h1 className='text-4xl'>How it works ?</h1>
-        </div>
+        </div> */}
     </div>
   )
 }
