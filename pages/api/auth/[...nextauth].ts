@@ -6,6 +6,12 @@ import { PrismaAdapter } from "@auth/prisma-adapter"
 import GoogleProvider from "next-auth/providers/google"
 import bcrypt from 'bcrypt'
 
+/**
+ * TODO auth with google provider
+ * TODO email validation
+ * TODO password forgetten
+ */
+
 export const nextAuthConfig: NextAuthOptions = {
     pages : {
         signIn : '/signin'

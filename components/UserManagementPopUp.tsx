@@ -23,10 +23,10 @@ const UserManagementPopUp = () => {
           {" "}
           <Settings /> <p>Settings</p>{" "}
         </Link>
-        <Button className="flex items-center gap-2 p-1" onClick={() => signOut()}>
+        <button className="flex items-center gap-2 p-1" onClick={() => signOut()}>
           <LogOut />
           <p>Disconnect</p>
-        </Button>
+        </button>
       </div>
     </div>
   );

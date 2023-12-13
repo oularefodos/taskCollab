@@ -7,7 +7,7 @@ const layout = async ({children} : { children : React.ReactNode}) => {
   
   return (
     <div className='w-full min-h-[100vh]'>
-        <main className='max-w-5xl m-auto p-2 w-full h-full'>
+        <main className='m-auto p-2 w-full h-full'>
             {children}
         </main>
     </div>

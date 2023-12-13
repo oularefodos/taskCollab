@@ -24,7 +24,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={poppins.className}>
         <MysessionProvider>
-          <main className='bg-gray-50 min-h-[100vh]'>
+          <main className='bg-white min-h-[100vh] overflow-hidden'>
             <Nav />
             {children}
           </main>

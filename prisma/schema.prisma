@@ -16,4 +16,14 @@ model User {
   password String?
   role String
   email String @unique
+  organisations Organisation[]
+}
+
+model Organisation {
+  id String @unique @default(uuid())
+  name String
+  description String?
+  create_at DateTime @default(now())
+  user User @relation(fields: [ownerId], references: [id])
+  ownerId String
 }
