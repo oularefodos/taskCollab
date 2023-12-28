@@ -1,5 +1,5 @@
 "use client";
-import Slider from "@/app/(protected)/organizations/components/Slider";
+import Slider from "@/app/(protected)/organizations/(components)/Slider";
 import { useParams, useRouter } from "next/navigation";
 import React from "react";
 

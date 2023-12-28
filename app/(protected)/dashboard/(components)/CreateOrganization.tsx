@@ -1,14 +1,11 @@
-"use client";
 import { createOrganization } from "@/actions/organisations/create";
 import SubmitOrganization from "./SubmitOrganization";
 import { useRouter } from "next/navigation";
 
 const CreateOrganization = () => {
   const router = useRouter();
-
-  const onSubmit = async(event : any) => {
-    event.preventDefault();
-    const formData = new FormData(event.target)
+  
+  const createOrg = async(formData : FormData) => {
     try {
       const response = await createOrganization(formData);
       if (response.error) {
@@ -29,7 +26,7 @@ const CreateOrganization = () => {
         Create New Organization
       </h1>
       <form
-        onSubmit={onSubmit}
+        action={createOrg}
         className="mt-5 flex flex-col items-center justify-center gap-y-3"
       >
         <input

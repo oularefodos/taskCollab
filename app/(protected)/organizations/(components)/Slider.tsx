@@ -9,7 +9,6 @@ import { getOrganizations } from "@/actions/organisations/getAll";
 import { useParams } from "next/navigation";
 import { Skeleton } from "../../../../components/ui/skeleton";
 import { Plus } from "lucide-react";
-import Organizations from "../../dashboard/components/Organizations";
 import SliderItem, { OrganizationType } from "./SliderItem";
 import { useLocalStorage } from "usehooks-ts";
 
@@ -17,7 +16,6 @@ interface Props {
   screenType : string
 }
 
-/** TODO Mobile SLider */
 const Slider = ({
   screenType
 } : Props) => {
@@ -76,7 +74,7 @@ const Slider = ({
   return (
     <div className="flex flex-col gap-y-11 items-start space-y-2">
       <div className="flex items-center justify-between w-full">
-        <p className="text-gray-400">Organizations</p>
+        <p className="text-gray-400">WorkSpaces</p>
         <Link href="/dashboard">
           <Button
             size="icon"

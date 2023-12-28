@@ -27,7 +27,6 @@ export const createOrganization = async (data : FormData) => {
 
     try {
         const session = await getServerSession(nextAuthConfig);
-        const {name, description} = response.data;
         if (!session?.user) {
             return {
                 error : {
@@ -36,6 +35,7 @@ export const createOrganization = async (data : FormData) => {
                 message : 'Permission denied'
             }
         }
+        const {name, description} = response.data;
         const data = session.user
         const userByEmail = await prisma.user.findUnique({where : {email : data.email!}});
         if (!userByEmail) {

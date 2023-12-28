@@ -11,16 +11,11 @@ interface DataType {
 
 
 const Signin = () => {
-  const [formData, setFormData] = useState<DataType>({
-    password : "",
-    email : ""
-  })
   const [isSubmitting, setIsSubmitting] = useState<Boolean>(false);
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter()
 
-  const isDataValid = () : boolean => {
-    const {password} = formData;
+  const isDataValid = (email : string | undefined, password : string | undefined) : boolean => {
     if (password === "") {
       setErrorMessage("password is required")
       return false;
@@ -28,22 +23,11 @@ const Signin = () => {
     return true;
   }
 
-  const handleOnChange = (e : any) => {
-    const value = e.target.value;
-    const name = e.target.name;
-    console.log(name, value)
-    setFormData((prevData) => ({
-      ...prevData,
-      [name] : value
-    }))
-    console.log(formData)
-  }
-
-  const submitForm = async (e : any) => {
-    e.preventDefault()
-    if (isDataValid()) {
+  const loginAction = async (formData : FormData) => {
+    const email = formData.get('email')?.toString()
+    const password = formData.get('password')?.toString()
+    if (isDataValid(email, password)) {
       setIsSubmitting(true);
-      const {email, password} = formData;
       try {
         const response = await signIn('credentials', {
           email,
@@ -62,10 +46,6 @@ const Signin = () => {
         console.log('something went wrong')
       }
       setIsSubmitting(false);
-      setFormData({
-        password : "",
-        email : ""
-      })
     }
   }
 
@@ -73,19 +53,15 @@ const Signin = () => {
     <div className='w-full h-[100vh] flex justify-center items-center'>
       <div className='w-auto h-auto bg-white py-8 px-8 shadow-lg shadow-black/30 border rounded-[10px]'>
         <h1 className='text-center text-[2rem] text-gray-600 mb-6'>Welcome back!</h1>
-        <form className='flex  justify-center flex-col gap-y-5 items-center' onSubmit={e => submitForm(e)}>
+        <form className='flex  justify-center flex-col gap-y-5 items-center' action={loginAction}>
           <input 
-            value={formData.email} 
             name="email"
-            onChange={e => handleOnChange(e)}
             type='email' 
             placeholder='email@gmail.com' 
             className='py-2  px-3 rounded-[10px] w-[300px] border-2 rouded-sm'
           />
           <input 
-            value={formData.password}
             name="password"
-            onChange={e => handleOnChange(e)}
             type='password' 
             placeholder='password' 
             className='py-2  px-3 rounded-[10px] w-[300px] border-2  '

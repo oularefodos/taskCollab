@@ -5,7 +5,7 @@ import { Button } from "./ui/button";
 import { LogIn, Menu, UserPlus2 } from "lucide-react";
 import UserManagementPopUp from "./UserManagementPopUp";
 import { useSession } from "next-auth/react";
-import Slider from "../app/(protected)/organizations/components/Slider";
+import Slider from "../app/(protected)/organizations/(components)/Slider";
 import { SheetContent, SheetTrigger, Sheet } from "./ui/sheet";
 
 /**
@@ -39,7 +39,6 @@ const Nav = () => {
           </div>
         ) : (
           <div className="flex items-center gap-x-5">
-            {/* <Link href='/signin'>Princing</Link> */}
             <Link href="/signin">
               <Button className="border border-black flex items-center gap-x-2 text-black hover:text-white bg-slate-100">
                 {" "}

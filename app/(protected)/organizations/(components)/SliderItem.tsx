@@ -9,12 +9,9 @@ import {
   Building,
   Activity,
   Layout,
-  CreditCard,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "../../../../components/ui/button";
-import { BorderDashedIcon } from '@radix-ui/react-icons';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Skeleton } from '../../../../components/ui/skeleton';
 
@@ -49,11 +46,6 @@ const SliderItem = ({index, organization, onExpend, isActive, isExpended} : Prop
       icon : <Settings />,
       name : 'Settings',
       href : `/organizations/${organization.id}/settings`
-    },
-    {
-      icon : <CreditCard />,
-      name : 'Payement',
-      href : `/organizations/${organization.id}/payement`
     },
   ]
 
