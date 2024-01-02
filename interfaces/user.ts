@@ -1,7 +1,7 @@
 import * as z from "zod";
 
 // zod schema 
-export const userValidator = z.object({
+export const registerValidator = z.object({
   email: z
     .string()
     .email()
@@ -24,5 +24,17 @@ export const userValidator = z.object({
     username : z.string().min(3, {message: 'require more than 3 characters'})
 });
 
+export const loginValidator = z.object({
+  email: z
+    .string()
+    .toLowerCase().trim().trim().refine(value => value !== '', {
+      message : 'the email is required'
+    }),
+  password: z
+    .string().refine(value => value !== '', {
+      message : 'the password is required'
+    })
+});
+
 // create an interface for this schema
-export type User = z.infer<typeof userValidator>;
+export type User = z.infer<typeof registerValidator>;
