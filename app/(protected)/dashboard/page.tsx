@@ -7,6 +7,7 @@ import { Plus, Search } from 'lucide-react'
 import {useState } from 'react'
 
 import React from 'react'
+import { ToastContainer } from 'react-toastify'
 
 const Dashboard = () => {
   const [isClose, setIsclose] = useState(true);
@@ -43,6 +44,7 @@ const Dashboard = () => {
       <Modal isClose={isClose} setClose={setIsclose}>
         <CreateOrganization />
       </Modal>
+      <ToastContainer/>
     </div>
   )
 }

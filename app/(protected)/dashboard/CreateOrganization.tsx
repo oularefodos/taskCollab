@@ -1,24 +1,40 @@
 import { createOrganization } from "@/actions/organisations/create";
 import SubmitOrganization from "./SubmitOrganization";
 import { useRouter } from "next/navigation";
+import { ToastContainer, toast } from "react-toastify";
+import { string } from "zod";
 
 const CreateOrganization = () => {
   const router = useRouter();
-  
-  const createOrg = async(formData : FormData) => {
-    // try {
-    //   const response = await createOrganization(formData);
-    //   if (response.error) {
-  
-    //   }
-    //   else {
-    //     const {message, id } = response;
-    //     router.push(`/organizations/${id}`)
-    //   }
-    // } catch (error) {
-    //   console.log('something goes wrong')
-    // }
-  }
+
+  const createOrg = async (formData: FormData) => {
+    const response = await createOrganization(formData);
+    if (response?.success) {
+      const { message, data } = response;
+      if (data?.id) {
+        router.push(`/organisations/${data.id}`);
+      }
+    } else {
+      const reponse: string | string[] = response;
+      if (typeof response.message === "string") {
+        toast(response.message);
+      } else {
+        const messages: string[] = response.message;
+        messages.forEach((element) => {
+          toast(element, {
+            position: "top-right",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            });
+        });
+      }
+    }
+  };
 
   return (
     <div className="h-full w-full px-2 py-4">
@@ -41,8 +57,10 @@ const CreateOrganization = () => {
           placeholder="Description"
           className="py-2 px-3 rounded-[10px] w-full border-2 rouded-sm"
         />
+        <ToastContainer />
         <SubmitOrganization />
       </form>
+      
     </div>
   );
 };

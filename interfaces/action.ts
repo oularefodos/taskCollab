@@ -1,9 +1,10 @@
-import { ErrorType } from "./shard"
-
-export type ActionReturnType<T> = {
-    error? : ErrorType,
-    message? : string,
-    data? : T
+export interface ErrorObject {
+    success : false,
+    message : string | string[]
 }
 
-export type ActionFunctionType= (e? : FormData) => any
+export interface SuccesObject<T> {
+    success : true,
+    data? : T,
+    message : string
+}

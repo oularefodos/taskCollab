@@ -2,7 +2,7 @@ import Nav from '@/components/Nav'
 import { nextAuthConfig } from '@/pages/api/auth/[...nextauth]'
 import { getServerSession } from 'next-auth'
 import React from 'react'
-
+import { ToastContainer } from 'react-toastify'
 const layout = async ({children} : { children : React.ReactNode}) => {
   
   return (

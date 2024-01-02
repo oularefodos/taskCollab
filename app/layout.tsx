@@ -4,7 +4,8 @@ import './globals.css'
 import { metadataConfig } from '@/config/metadataConfig'
 import Nav from '@/components/Nav'
 import MysessionProvider from '@/components/SessionProvider'
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const poppins = Poppins({ subsets: ['latin'], weight : "600" })
 
 export const metadata: Metadata = {
@@ -25,6 +26,7 @@ export default function RootLayout({
       <body className={poppins.className}>
         <MysessionProvider>
           <main className='bg-white min-h-[100vh] overflow-hidden'>
+            <ToastContainer />
             <Nav />
             {children}
           </main>

@@ -102,7 +102,7 @@ const Signup = () => {
             onChange={(e) => handleOnChange(e)}
             type="email"
             placeholder="email@gmail.com"
-            className="py-2  px-3 rounded-[10px] w-[300px] border-2 rouded-sm"
+            className="py-2 px-3 rounded-[10px] w-[300px] border-2 rouded-sm"
           />
           <input
             value={formData.password}
