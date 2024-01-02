@@ -6,18 +6,18 @@ const CreateOrganization = () => {
   const router = useRouter();
   
   const createOrg = async(formData : FormData) => {
-    try {
-      const response = await createOrganization(formData);
-      if (response.error) {
+    // try {
+    //   const response = await createOrganization(formData);
+    //   if (response.error) {
   
-      }
-      else {
-        const {message, id } = response;
-        router.push(`/organizations/${id}`)
-      }
-    } catch (error) {
-      console.log('something goes wrong')
-    }
+    //   }
+    //   else {
+    //     const {message, id } = response;
+    //     router.push(`/organizations/${id}`)
+    //   }
+    // } catch (error) {
+    //   console.log('something goes wrong')
+    // }
   }
 
   return (

@@ -1,8 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import { signIn } from "next-auth/react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
+import AuthWrapper from "../AuthWrapper";
 
 interface DataType {
   username: string;
@@ -84,11 +83,7 @@ const Signup = () => {
   };
 
   return (
-    <div className="w-full h-[100vh] flex justify-center items-center">
-      <div className="w-auto h-auto bg-white border shadow-lg shadow-black/30 py-8 px-8 rounded-[10px]">
-        <h1 className="text-center text-[2rem] text-gray-600 mb-6">
-          Get started
-        </h1>
+    <AuthWrapper title="Get started">
         <form
           className="flex  justify-center flex-col gap-y-5 items-center"
           onSubmit={submitForm}
@@ -129,28 +124,7 @@ const Signup = () => {
             {isSubmitting ? "is submitting..." : "submit"}
           </button>
         </form>
-        {/* <div className="w-full mt-5 h-[40px] flex justify-around items-center">
-          <div className="w-[40%] h-[1px] border border-gray-200"></div>
-          <p className="text-gray-400">OR</p>
-          <div className="w-[40%] h-[1px] border border-gray-200"></div>
-        </div>
-        <button
-          onClick={() => signIn("google")}
-          className="rouded-lg mt-5 w-[300px] rounded-[10px] uppercase h-[60px] text-gray-400 border-2 hover:bg-gray-100"
-        >
-          create with google
-        </button> */}
-        <p className="text-center mt-5">
-          if you already have an account{" "}
-          <Link className="text-blue-700 underline" href="/signin">
-            Signin
-          </Link>
-        </p>
-        {errorMessage !== "" && (
-          <p className="text-red-400 text-center"> {errorMessage} </p>
-        )}
-      </div>
-    </div>
+    </AuthWrapper>
   );
 };
 

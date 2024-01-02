@@ -1,7 +1,7 @@
 'use client'
-import CreateOrganization from '@/app/(protected)/dashboard/(components)/CreateOrganization'
+import CreateOrganization from '@/app/(protected)/dashboard/CreateOrganization'
 import Modal from '@/components/Modal'
-import Organizations from '@/app/(protected)/dashboard/(components)/Organizations'
+import Organizations from '@/app/(protected)/dashboard/Organizations'
 import { Button } from '@/components/ui/button'
 import { Plus, Search } from 'lucide-react'
 import {useState } from 'react'
@@ -10,7 +10,7 @@ import React from 'react'
 
 const Dashboard = () => {
   const [isClose, setIsclose] = useState(true);
-  const organizations = []
+  
   return (
     <div className='w-full h-full'>
       <div className='w-full h-full flex lg:p-11 p-4'>

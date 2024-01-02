@@ -1,17 +1,18 @@
 'use server'
+import Organizations from '@/app/(protected)/dashboard/Organizations';
 import { nextAuthConfig } from '@/pages/api/auth/[...nextauth]';
 import prisma from '@/prisma/db';
 import { getServerSession } from 'next-auth';
-import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
+import { ActionReturnType } from '@/interfaces/action';
 import { z } from 'zod'
 
 const schema = z.object({
     name : z.string().min(3, { message : 'required more than 3 letters'}),
     description : z.string()
-})
+});
 
-export const createOrganization = async (data : FormData) => {
+
+export const createOrganization = async (data : FormData) : Promise<ActionReturnType<{id : string}>> => {
 
     const response = schema.safeParse({
         name : data.get('name'),
@@ -57,9 +58,14 @@ export const createOrganization = async (data : FormData) => {
         )
         return {
             message : 'you created a new Organisation',
-            id : newOrganisation.id
+            data : {
+                id : newOrganisation.id
+            }
         }
     } catch (error : any) {
-        return {error : 'something went wrong'}
+        return {error : {
+            name : ['something went wrong']
+        }
+    }
     }
 }  
