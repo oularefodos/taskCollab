@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { toastOption } from "@/app/(protected)/dashboard/CreateOrganization";
 import { loginValidator } from "@/interfaces/user";
 import * as z from "zod";
+import SubmitButton from "@/components/SubmitButton";
 
 const Signin = () => {
   const router = useRouter();
@@ -34,7 +35,7 @@ const Signin = () => {
       }
     } catch (error) {
       if (error instanceof z.ZodError) {
-        const {email, password}= error.flatten().fieldErrors;
+        const { email, password } = error.flatten().fieldErrors;
         email?.forEach((element) => {
           toast.error(element, toastOption);
         });
@@ -65,9 +66,7 @@ const Signin = () => {
           placeholder="password"
           className="py-2  px-3 rounded-[10px] w-[300px] border-2"
         />
-        <button className="rouded-lg w-[300px] rounded-[10px] uppercase h-[60px] text-gray-400 border-2 hover:bg-gray-100">
-          submit
-        </button>
+        <SubmitButton />
       </form>
     </AuthWrapper>
   );

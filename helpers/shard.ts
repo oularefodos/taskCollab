@@ -2,8 +2,8 @@ import { ErrorObject } from "@/interfaces/action";
 import { getServerSession } from "next-auth";
 import { nextAuthConfig } from "@/pages/api/auth/[...nextauth]";
 import prisma from "@/prisma/db";
-import { ToastOptions } from "react-toastify";
 
+// create an object for errors
 export const createErrorObject = (message: string | string[]): ErrorObject => {
   return {
     success: false,
@@ -11,6 +11,7 @@ export const createErrorObject = (message: string | string[]): ErrorObject => {
   };
 };
 
+// check if the user authenticated
 export const userIsAuthenticated = async (): Promise<null | string> => {
   const session = await getServerSession(nextAuthConfig);
   if (!session?.user) {

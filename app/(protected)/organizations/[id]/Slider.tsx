@@ -7,7 +7,6 @@ import {
 } from "@radix-ui/react-accordion";
 import { getOrganizations } from "@/actions/organisations/getAll";
 import { useParams } from "next/navigation";
-import { Skeleton } from "../../../../components/ui/skeleton";
 import { Plus } from "lucide-react";
 import SliderItem, { OrganizationType } from "./SliderItem";
 import { useLocalStorage } from "usehooks-ts";

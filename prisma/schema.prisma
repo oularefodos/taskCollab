@@ -21,7 +21,7 @@ model User {
 
 model Organisation {
   id String @unique @default(uuid())
-  name String
+  name String @unique
   description String?
   create_at DateTime @default(now())
   user User @relation(fields: [ownerId], references: [id])

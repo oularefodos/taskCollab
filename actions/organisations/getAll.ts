@@ -1,31 +1,26 @@
 "use server";
 
-import { nextAuthConfig } from "@/pages/api/auth/[...nextauth]";
+import { OrganizationType } from "@/interfaces/Organisation";
+import { asyncWrapper } from "@/helpers/asyncWrapper";
+import { createErrorObject, userIsAuthenticated } from "@/helpers/shard";
+import { ErrorObject, SuccesObject } from "@/interfaces/action";
 import prisma from "@/prisma/db";
-import { getServerSession } from "next-auth";
 
-export const getOrganizations = async () => {
-  try {
-    const session = await getServerSession(nextAuthConfig);
-    if (!session?.user) {
-      return { error: "required aiuthentication" };
+ const withoutWrapper = async () : Promise<ErrorObject | SuccesObject<OrganizationType[]>> => {
+  const userId = await userIsAuthenticated();
+    if (userId === null) {
+      return createErrorObject('require authentication');
     }
-    const user = session.user;
-    const userByEmail = await prisma.user.findUnique({
+    const organizations  = await prisma.organisation.findMany({
       where: {
-        email: user.email!,
+        ownerId: userId,
       },
-    });
-    if (!userByEmail) {
-      return { error: "no user like that" };
-    }
-    const organizations = await prisma.organisation.findMany({
-      where: {
-        ownerId: userByEmail.id,
-      },
-    });
-    return { data: organizations };
-  } catch (error) {
-    return { error: "something went wrong" };
-  }
+    }) as OrganizationType[];
+    return { 
+      message : 'success',
+      success : true,
+      data : organizations
+    };
 };
+
+export const getOrganizations = asyncWrapper(withoutWrapper)

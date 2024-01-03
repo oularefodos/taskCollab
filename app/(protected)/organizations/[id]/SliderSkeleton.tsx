@@ -3,6 +3,7 @@ import SliderItem from './SliderItem'
 import React from 'react'
 
 const SliderSkeleton = () => {
+  const array = Array.from({length : 20}, (_, index) => index)
   return (
     <div className="flex flex-col gap-y-11 items-start">
         <div className="flex items-center justify-between w-full">
@@ -10,9 +11,7 @@ const SliderSkeleton = () => {
           <Skeleton className="w-10 h-10"/>
         </div>
         <div className="w-full space-y-2">
-          <SliderItem.Skeleton />
-          <SliderItem.Skeleton />
-          <SliderItem.Skeleton />
+          { array.map((_, index) => <SliderItem.Skeleton key={index} />) }
         </div>
       </div>
   )

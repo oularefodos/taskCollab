@@ -1,9 +1,9 @@
 import { createOrganization } from "@/actions/organisations/create";
-import SubmitOrganization from "./SubmitOrganization";
+import SubmitOrganization from "../../../components/SubmitButton";
 import { useRouter } from "next/navigation";
 import { ToastContainer, ToastOptions, toast } from "react-toastify";
 
-export const toastOption : ToastOptions = {
+export const toastOption: ToastOptions = {
   position: "top-right",
   autoClose: 1000,
   hideProgressBar: false,
@@ -22,12 +22,11 @@ const CreateOrganization = () => {
     if (response?.success) {
       const { message, data } = response;
       if (data?.id) {
-        const { id } : {id : string} = data;
+        const { id }: { id: string } = data;
         toast.success(message, toastOption);
         router.push(`/organizations/${id}`);
       }
     } else {
-      const reponse: string | string[] = response;
       if (typeof response.message === "string") {
         toast.error(response.message, toastOption);
       } else {
@@ -63,7 +62,6 @@ const CreateOrganization = () => {
         <ToastContainer />
         <SubmitOrganization />
       </form>
-      
     </div>
   );
 };
