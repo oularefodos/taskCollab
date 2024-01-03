@@ -1,4 +1,5 @@
 "use client";
+
 import React from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -8,6 +9,7 @@ import { toastOption } from "@/app/(protected)/dashboard/CreateOrganization";
 import { loginValidator } from "@/interfaces/user";
 import * as z from "zod";
 import SubmitButton from "@/components/SubmitButton";
+import { ZodErrorExtractor } from "@/helpers/asyncWrapper";
 
 const Signin = () => {
   const router = useRouter();
@@ -35,11 +37,8 @@ const Signin = () => {
       }
     } catch (error) {
       if (error instanceof z.ZodError) {
-        const { email, password } = error.flatten().fieldErrors;
-        email?.forEach((element) => {
-          toast.error(element, toastOption);
-        });
-        password?.forEach((element) => {
+        const messages  = ZodErrorExtractor(error)
+        messages.forEach((element) => {
           toast.error(element, toastOption);
         });
       } else {

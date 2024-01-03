@@ -1,17 +1,39 @@
 "use client";
+
 import React from "react";
-import { useRouter } from "next/navigation";
 import AuthWrapper from "../AuthWrapper";
 import SubmitButton from "@/components/SubmitButton";
+import { createUser } from "@/actions/user/create";
+import { toast } from "react-toastify";
+import { toastOption } from "@/app/(protected)/dashboard/CreateOrganization";
+import { useRouter } from "next/navigation";
 
 const Signup = () => {
-  const submitForm = async (e: FormData) => {};
+  const router = useRouter()
+
+  const submitUser = async (formData: FormData) => {
+    const response = await createUser(formData);
+    if (response?.success) {
+      const { message } = response;
+      toast.success(message, toastOption);
+      router.push('/signin');
+    } else {
+      if (typeof response.message === "string") {
+        toast.error(response.message, toastOption);
+      } else {
+        const messages: string[] = response.message;
+        messages.forEach((element) => {
+          toast.error(element, toastOption);
+        });
+      }
+    }
+  };
 
   return (
     <AuthWrapper title="Get started">
       <form
         className="flex  justify-center flex-col gap-y-5 items-center"
-        action={submitForm}
+        action={submitUser}
       >
         <input
           name="username"

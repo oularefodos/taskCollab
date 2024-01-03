@@ -3,6 +3,7 @@ import React from "react";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { usePathname } from "next/navigation";
+import { FcGoogle } from "react-icons/fc"
 
 interface Props {
   children: React.ReactNode;
@@ -23,9 +24,9 @@ const AuthWrapper = ({ children, title }: Props) => {
         </div>
         <button
           onClick={() => signIn("google")}
-          className="rouded-lg mt-5 w-[300px] rounded-[10px] uppercase h-[60px] text-gray-400 border-2 hover:bg-gray-100"
+          className="rouded-lg mt-5 w-[300px] rounded-[10px] flex items-center justify-center gap-3 uppercase h-[60px] text-gray-400 border-2 hover:bg-gray-100"
         >
-          login with google
+          <FcGoogle className='w-7 h-7' /> login with google
         </button>
         {pathname === "/signup" ? (
           <p className="text-center mt-5">
