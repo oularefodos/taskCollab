@@ -6,12 +6,15 @@ import { OrganizationType } from "@/interfaces/Organisation";
 import OrganizationItem from "./OrganizationItem";
 
 interface Props {
-  setClose: (params: boolean) => void;
+  setClose: (params: boolean) => void,
+  value: string
 }
 
-const Organizations = ({ setClose }: Props) => {
+const Organizations = ({ setClose, value }: Props) => {
   const [organizations, setOrganizations] = useState<OrganizationType[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const organisationsSearch = value === "" ? organizations : organizations.filter(({name}) => name.includes(value));
 
   const getDatas = async () => {
     setIsLoading(true);
@@ -47,7 +50,7 @@ const Organizations = ({ setClose }: Props) => {
         >
           <Plus className="text-2xl" />
         </div>
-        {organizations.map((organization: OrganizationType, index: number) => (
+        {organisationsSearch.map((organization: OrganizationType, index: number) => (
           <OrganizationItem organization={organization} key={index} />
         ))}
       </div>
