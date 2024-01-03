@@ -11,9 +11,9 @@ import {
   Layout,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Button } from "../../../../components/ui/button";
+import { Button } from "../../../components/ui/button";
 import { useRouter } from 'next/navigation';
-import { Skeleton } from '../../../../components/ui/skeleton';
+import { Skeleton } from '../../../components/ui/skeleton';
 
 export interface OrganizationType {
   id : string,

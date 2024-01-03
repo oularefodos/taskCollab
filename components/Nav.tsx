@@ -5,7 +5,7 @@ import { Button } from "./ui/button";
 import { LogIn, Menu, UserPlus2 } from "lucide-react";
 import UserManagementPopUp from "./UserManagementPopUp";
 import { useSession } from "next-auth/react";
-import Slider from "../app/(protected)/organizations/[id]/Slider";
+import Slider from "../app/(protected)/organizations/Slider";
 import { SheetContent, SheetTrigger, Sheet } from "./ui/sheet";
 import { usePathname, useRouter } from "next/navigation";
 
