@@ -1,8 +1,8 @@
 import NextAuth from "next-auth/next"
 import CredentialsProvider from "next-auth/providers/credentials"
 import prisma from "@/prisma/db"
-import {NextAuthOptions} from 'next-auth'
-import { PrismaAdapter } from "@auth/prisma-adapter"
+import { NextAuthOptions } from 'next-auth'
+import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import GoogleProvider from "next-auth/providers/google"
 import bcrypt from 'bcrypt'
 
@@ -12,12 +12,13 @@ import bcrypt from 'bcrypt'
  * TODO password forgetten
  */
 
+
 export const nextAuthConfig: NextAuthOptions = {
     pages : {
         signIn : '/signin'
     },
     debug : true,
-    // adapter : PrismaAdapter(prisma),
+    adapter : PrismaAdapter(prisma),
     providers: [
         CredentialsProvider({
           name: 'Credentials',
@@ -25,26 +26,28 @@ export const nextAuthConfig: NextAuthOptions = {
             email: { label: "Email", type: "email", placeholder: "exemple@gmail.com" },
             password: { label: "Password", type: "password", placeholder : "your password" }
           },
-          async authorize(credentials) {         
+          async authorize(credentials) {
+            console.log('i am in')
             try {
                 if (!credentials?.email || !credentials?.password) {
                     return null
                 }
                 const { email } = credentials
                 console.log(email, credentials.password);
+                console.log(email);
                 const user = await prisma.user.findUnique({where : {email}});
                 if (!user) {
                     return null;
                 }
-                console.log(user, 'user');
                 const passwordMach = await bcrypt.compare(credentials.password, user.password!);
                 if (!passwordMach) {
                     return null
                 }
+                console.log(user, 'user');
                 const {password, ...userWithoutPassword} = user
                 return userWithoutPassword
             } catch (error) {
-                console.log(error);
+                // console.log(error);
             }   
             return null
           }
@@ -52,17 +55,20 @@ export const nextAuthConfig: NextAuthOptions = {
         GoogleProvider({ 
             clientId: process.env.GOOGLE_ID!,
             clientSecret: process.env.GOOGLE_SECRET!,
-            // async profile(profile, tokens) {
-            //     const {email} = profile;
-            //     const user = await prisma.user.findUnique({where : {email}})
-            //     return user
-            // },
+            profile(profile) {
+                const role = profile.email === process.env.ADMIN_EMAIL ? 'ADMIN' : 'USER'
+                return {
+                    id: profile.sub,
+                    email: profile.email,
+                    role
+                }
+            },
         })
       ],
-    //   jwt: {
-    //     maxAge: 30 * 24 * 60 * 60,
-    //     updateAge: 24 * 60 * 60,
-    //   }
+      secret: process.env.NEXTAUTH_SECRET,
+      session: {
+          strategy: "jwt",
+      },
 }
 
 export default NextAuth(nextAuthConfig);

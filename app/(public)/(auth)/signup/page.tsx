@@ -36,12 +36,6 @@ const Signup = () => {
         action={submitUser}
       >
         <input
-          name="username"
-          type="text"
-          placeholder="username"
-          className="py-2 px-3 rounded-[10px] w-[300px] shadow-sm border-2"
-        />
-        <input
           name="email"
           type="email"
           placeholder="email@gmail.com"

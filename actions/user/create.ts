@@ -15,11 +15,10 @@ const withoutWrapper = async (
 
     // parse incomming data
   const userData = await registerValidator.parse({
-    username: e.get("username"),
     password: e.get("password"),
     email: e.get("email"),
   });
-  const { username, email, password } = userData;
+  const { email, password } = userData;
 
   // define user role
   const role = "USER";
@@ -30,12 +29,6 @@ const withoutWrapper = async (
     return createErrorObject("this email already exits");
   }
 
-    // check existing user with this username
-  const userByUsername = await prisma.user.findUnique({ where: { username } });
-  if (userByUsername) {
-    return createErrorObject("this username already exists");
-  }
-
   // generate a salt and hash the password
   const salt = await bcrypt.genSalt(10);
   const passwordHashed = await bcrypt.hash(password, salt);
@@ -44,7 +37,6 @@ const withoutWrapper = async (
   await prisma.user.create({
     data: {
       email,
-      username,
       password: passwordHashed,
       role,
     },

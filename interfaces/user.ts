@@ -21,7 +21,6 @@ export const registerValidator = z.object({
     .regex(/[!@#$%^&*(),.?":{}|<>]/, {
       message: 'require at least one special character letter',
     }),
-    username : z.string().min(3, {message: 'require more than 3 characters'})
 });
 
 export const loginValidator = z.object({
