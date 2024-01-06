@@ -77,7 +77,7 @@ const Slider = ({
           className="flex flex-col gap-y-3 py-2 w-full"
           defaultValue={defaultValue}
         >
-          {organazitions.map((data: OrganizationType, index: number) => (
+          {organazitions?.map((data: OrganizationType, index: number) => (
             <SliderItem
               index={index}
               organization={data}

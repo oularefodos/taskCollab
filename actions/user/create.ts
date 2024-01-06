@@ -1,6 +1,6 @@
 'use server'
 
-import { createErrorObject } from "@/helpers/shard";
+import { createErrorObject, getUserByEmail } from "@/helpers/shard";
 import { ErrorObject, SuccesObject } from "@/interfaces/action";
 import { registerValidator } from "@/interfaces/user";
 import bcrypt from "bcrypt";
@@ -21,10 +21,9 @@ const withoutWrapper = async (
   const { email, password } = userData;
 
   // define user role
-  const role = "USER";
 
   // check existing user with this email
-  const userByEmail = await prisma.user.findUnique({ where: { email } });
+  const userByEmail = await getUserByEmail(email);
   if (userByEmail) {
     return createErrorObject("this email already exits");
   }
@@ -38,7 +37,6 @@ const withoutWrapper = async (
     data: {
       email,
       password: passwordHashed,
-      role,
     },
   });
   return { success: true, message: "you have been registered" };

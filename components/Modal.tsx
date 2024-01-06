@@ -1,4 +1,3 @@
-import { Cross, CrossIcon, PanelLeftClose } from "lucide-react";
 import React from "react";
 
 interface Props {

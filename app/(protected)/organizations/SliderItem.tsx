@@ -31,6 +31,7 @@ interface Props {
 
 const SliderItem = ({index, organization, onExpend, isActive, isExpended} : Props) => {
   const router = useRouter()
+  
   const items = [
     {
       icon : <Layout />,

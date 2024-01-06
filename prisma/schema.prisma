@@ -13,11 +13,11 @@ datasource db {
 model User {
   id String @unique @default(uuid())
   password String?
-  role String
+  role String @default("USER")
   email String @unique
   accounts      Account[]
   sessions      Session[]
-  emailVerified DateTime?
+  emailVerified Boolean?
   organisations Organisation[]
 }
 
@@ -59,7 +59,7 @@ model Session {
 }
 
 model VerificationToken {
-  identifier String
+  identifier String   @unique
   token      String   @unique
   expires    DateTime
 

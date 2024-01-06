@@ -31,7 +31,8 @@ const Signin = () => {
         router.push("/dashboard");
       } else {
         if (response?.error) {
-          const message: string = "your password or email is not correct";
+          console.log(response.error)
+          const message: string = response.error;
           toast.error(message, toastOption);
         }
       }
@@ -67,6 +68,7 @@ const Signin = () => {
         />
         <SubmitButton />
       </form>
+      <div>{}</div>
     </AuthWrapper>
   );
 };
