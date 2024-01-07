@@ -2,7 +2,9 @@ import { ErrorObject } from "@/interfaces/action";
 import { getServerSession } from "next-auth";
 import { nextAuthConfig } from "@/pages/api/auth/[...nextauth]";
 import prisma from "@/prisma/db";
+import nodemailer from "nodemailer";
 import { v4 as uuidv4 } from "uuid";
+import { confirmMessageTemplate } from "@/helpers/templates";
 
 /**
  * Create a Error Object if is not correct in my server action
@@ -103,5 +105,48 @@ export const getverificationTokenByToken = async (token: string) => {
   const verificationToken = await prisma.verificationToken.findUnique({
     where: { token },
   });
+  console.log(token, "token");
   return verificationToken;
+};
+
+/**
+ * this function has to send an email to specific user
+ * @param receiverEmail
+ * @param subject
+ * @param message
+ */
+export const sendEmail = (
+  receiverEmail: string,
+  subject: string,
+  html: string
+) => {
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.EMAIL,
+      pass: process.env.EMAIL_PASSWORD,
+    },
+  });
+
+  const mailOptions = {
+    from: process.env.EMAIL,
+    to: receiverEmail,
+    subject: subject,
+    html: html,
+  };
+
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+      throw error;
+    } else {
+      console.log("Email sent: " + info.response);
+    }
+  });
+};
+
+export const sendVericationToken = async (email: string, id: string) => {
+  const newToken = await generateEmailVerifieldToken(id);
+  const link = `${process.env.URL}/verifyToken/${newToken.token}`;
+  sendEmail(email, "Testing", confirmMessageTemplate(link));
 };

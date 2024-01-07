@@ -53,7 +53,7 @@ const Signup = () => {
           placeholder="confirmPassword"
           className="py-2  px-3 rounded-[10px] w-[300px] border-2"
         />
-        <SubmitButton />
+        <SubmitButton text='Submit'/>
       </form>
     </AuthWrapper>
   );

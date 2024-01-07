@@ -6,8 +6,8 @@ import { registerValidator } from "@/interfaces/user";
 import bcrypt from "bcrypt";
 import prisma from "@/prisma/db";
 import { asyncWrapper } from "@/helpers/asyncWrapper";
+import { sendVericationToken } from "@/helpers/shard";
 
-//
 
 const withoutWrapper = async (
   e: FormData
@@ -33,13 +33,14 @@ const withoutWrapper = async (
   const passwordHashed = await bcrypt.hash(password, salt);
 
   // create new user
-  await prisma.user.create({
+  const newUser = await prisma.user.create({
     data: {
       email,
       password: passwordHashed,
     },
   });
-  return { success: true, message: "you have been registered" };
+  sendVericationToken(email, newUser.id);
+  return { success: true, message: "you have been registered, we sent an email to active your account" };
 };
 
 export const createUser = asyncWrapper(withoutWrapper)

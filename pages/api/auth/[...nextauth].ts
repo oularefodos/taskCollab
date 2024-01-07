@@ -37,9 +37,6 @@ export const nextAuthConfig: NextAuthOptions = {
         if (!user) {
           throw new Error("Incorrect password or email");
         }
-        if (!user.emailVerified) {
-          throw new Error("This user mus validate his email");
-        }
         if (!user.password) {
           throw new Error(
             "This is related to google account that already exists"
@@ -74,27 +71,28 @@ export const nextAuthConfig: NextAuthOptions = {
   },
   callbacks: {
 
-    async signIn({ account, profile }) {
-        if (account?.provider === "google") return true;
-
-        if (!profile || !profile.email) return false;
-
-        const user = await getUserByEmail(profile.email)
-
-        if (!user || !user?.emailVerified) {
-            return false;
+    async session({session, token, user}) {
+        return {
+          ...session,
+          user : {
+            ...session.user,
+            id : token.id,
+            emailVerified : token.emailVerified
+          }
         }
-
-        return true; 
-    },
-
-    async session({session, token}) {
-        return session;
     },
 
     async jwt({ token }) {
       const user = await getUserByEmail(token.email!);
-      token.emailVerified = user?.emailVerified
+      if (user) {
+        const emailVerified = !user.password ? true : user.emailVerified;
+        const { id } = user
+        return {
+          ...token,
+          emailVerified,
+          id
+        }
+      }
       return token;
     },
   },

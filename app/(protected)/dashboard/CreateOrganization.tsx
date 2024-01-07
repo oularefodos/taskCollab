@@ -5,7 +5,7 @@ import { ToastContainer, ToastOptions, toast } from "react-toastify";
 
 export const toastOption: ToastOptions = {
   position: "top-right",
-  autoClose: 1000,
+  autoClose: 5000,
   hideProgressBar: false,
   closeOnClick: true,
   pauseOnHover: true,
@@ -60,7 +60,7 @@ const CreateOrganization = () => {
           className="py-2 px-3 rounded-[10px] w-full border-2 rouded-sm"
         />
         <ToastContainer />
-        <SubmitOrganization />
+        <SubmitOrganization text={'Create an Organization'} />
       </form>
     </div>
   );
