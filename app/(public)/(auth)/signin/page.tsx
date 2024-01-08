@@ -3,6 +3,7 @@
 import React from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import AuthWrapper from "../AuthWrapper";
 import { toast } from "react-toastify";
 import { toastOption } from "@/app/(protected)/dashboard/CreateOrganization";
@@ -68,7 +69,10 @@ const Signin = () => {
         />
         <SubmitButton text={'Submit'}/>
       </form>
-      <div>{}</div>
+      <div className="mt-5">
+        if you forgot your password click 
+        <Link className="ml-1 cursor-pointer text-blue-600" href="/forgettenPassword">Here</Link>
+      </div>
     </AuthWrapper>
   );
 };
