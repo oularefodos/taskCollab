@@ -35,5 +35,15 @@ export const loginValidator = z.object({
     })
 });
 
+
+export const emailValidator = z.object({
+  email: z
+    .string()
+    .toLowerCase().trim().trim().refine(value => value !== '', {
+      message : 'the email is required'
+    }),
+});
+
 // create an interface for this schema
 export type User = z.infer<typeof registerValidator>;
+export type Email = z.infer<typeof emailValidator>;
