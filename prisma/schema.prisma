@@ -65,3 +65,11 @@ model VerificationToken {
 
   @@unique([identifier, token])
 }
+
+model PasswordToken {
+  identifier String   @unique
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
