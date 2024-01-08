@@ -21,6 +21,8 @@
 *.pem
 
 /prisma/dev.db
+/prisma/dev.db-journal
+/prisma/migrations
 
 # debug
 npm-debug.log*
